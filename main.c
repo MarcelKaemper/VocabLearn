@@ -4,6 +4,7 @@
 #include <sqlite3.h>
 
 static int callback(void *NotUsed, int argc, char **argv, char **azColName);
+char* readString(void);
 
 int main(int argc, char ** argv) {
 
@@ -23,10 +24,29 @@ int main(int argc, char ** argv) {
     
     WINDOW *win = newwin(h,w,0,0);
 
+	char * word1=NULL;
+	char * word2=NULL;
+
 
     noecho();
     keypad(stdscr, TRUE);
 
+	word1 = readString();
+	word2 = readString();
+
+    endwin();
+
+	printf("%s\n%s", word1, word2);
+
+
+    return 0;
+}
+
+static int callback(void *NotUsed, int argc, char **argv, char **azColName){
+return 0;	
+}
+
+char* readString(void){
 	char *string = NULL, *tmp = NULL;
 	size_t size = 0, index = 0;
 
@@ -46,15 +66,7 @@ int main(int argc, char ** argv) {
 		}
 		string[index++] = c;
 	}
-
-    endwin();
-
-	printf("%s", string);
-
-
-    return 0;
+	return string;
 }
 
-static int callback(void *NotUsed, int argc, char **argv, char **azColName){
-return 0;	
-}
+
